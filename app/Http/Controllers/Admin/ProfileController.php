@@ -9,22 +9,30 @@ use App\Models\Video;
 
 class ProfileController
 {
- 
     public function index(Request $request)
     { 
-            $request->user()->authorizeRoles(['loaders', 'admin']);
-            $user = \Auth::User();         
-            $channel = $user->channel;
-            //ToDo -- Cambiar por la relacion
-            $videos=[];
-            if(($channel)!=null){
-                $videos = Video::where('channel_id','=',$channel->id)->get();
+      
+            $autorized = $request->user()->authorizeRoles(['loaders', 'admin']);
+            if($autorized){
+                $user = \Auth::User();         
+                $channel = $user->channel;
+                //ToDo -- Cambiar por la relacion
+                $videos=[];
+                if(($channel)!=null){
+                    $videos = Video::where('channel_id','=',$channel->id)->get();
+                }
+                
+                return view('admin.profile',[
+                    'channel' => $user->channel,
+                    'videos' => $videos
+                ]);
             }
-            
-            return view('admin.profile',[
-                'channel' => $user->channel,
-                'videos' => $videos
-            ]);
+            dd(RoleUp::where('user_id','=',\Auth::User())->first());
+            if(empty(RoleUp::where('user_id','=',\Auth::User())->first())){
+                return back()->withErrors(['No estás autorizado']); 
+            }
+                return back()->withErrors(['Esperando respuesta del administrador']);  
+           
        
     }
 }

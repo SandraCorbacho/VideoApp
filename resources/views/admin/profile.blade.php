@@ -12,25 +12,19 @@
 <div class="container">
 
   <div class="row">
-
     <div class="col-lg-3">
-  
       <h1 class="my-4">@if(isset($channel) && !empty($channel)) {{$channel->title}} @else Aún no has creado tu canal @endif</h1>
       @if(isset($channel) && !empty($channel))<img class='w-100' src="{{asset('storage/'.$channel->image)}}">@endif
-      
       <div class="list-group">
         <a href="{{route('create','Video')}}" class="list-group-item">Nuevo Video</a>
         <a href="" class="list-group-item">Tus Videos</a>
         <a href="#" class="list-group-item">Tus Subscipciones</a>
         @if(!isset($channel) && empty($channel))<a href="{{route('create', 'Channel')}}" class="list-group-item">Crear canal</a>@else
         <a href="{{route('detail', 'Channel')}}" class="list-group-item">Tu canal</a> @endif
- 
+        @if((\Auth::User()->authorizeRoles(['admin'])))<a href='{{route("showUsers")}}'>Administrar usuarios</p> @endif
       </div>
-
     </div>
-   
     <div class="col-lg-9">
-
       <div class="row">
       @foreach($videos as $video)
         <div class="col-lg-4 col-md-6 mb-4">

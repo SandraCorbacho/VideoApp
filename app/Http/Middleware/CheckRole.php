@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\RoleUp;
 
 class CheckRole
 {
@@ -20,8 +21,11 @@ class CheckRole
         if (!empty($request->user()) && ($request->user()->hasRole('admin') || $request->user()->hasRole('loaders') ) ) {
             return $next($request);
         }
-        return redirect('login')
-        ->with('not_admin', 'El usuario no tiene permisos');
-        //return redirect('login')->with('errors', 'ususario no tiene permisos');
+        
+        //dd(RoleUp::where('user_id','=',\Auth::User()->id)->first());
+        if(empty(RoleUp::where('user_id','=',\Auth::User()->id)->first())){
+            return back()->withErrors(['No estás autorizado']); 
+        }
+        return back()->withErrors(['Esperando respuesta del administrador']); 
     }
 }

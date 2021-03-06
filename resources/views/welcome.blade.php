@@ -1,34 +1,47 @@
 @extends('layouts.app')
 @section('content')
-
+  @if($errors->any())
+   @if($errors->first() == 'No estás autorizado')
+    <h4>{{$errors->first()}}</h4>
+    <form action="{{route('roleUp')}}" method='post'>
+      <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+      <p>Quieres que el Administrador te suba de rago </p>
+      <input type="submit" value='Si'>
+      <button>No</button>
+    </form>
+    @else
+      <h4>{{$errors->first()}}</h4>
+    @endif
+    @endif
+  
 <div class="container">
-
   <div class="row">
-
     <div class="col-lg-3">
       <h1 class="my-4">Última Subida</h1>
+      @if(!empty($videos))         
+      @foreach($videos as $video)
+        @if($video->active == 1)
       <div class="list-group">
-        <a href="#" class="">
+        <a href="{{route('videoDetail',$video->id)}}" class="">
         <div class="col-lg-12 ">
-        @if(!empty($videos))
           <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="{{asset('storage/'.$videos[0]->image)}}" alt=""></a>
+           <img class="card-img-top" src="{{asset('storage/'.$video->image)}}" alt="">
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">{{$videos[0]->title}}</a>
+              {{$video->title}}
               </h4>
             </div>
           <!--  <div class="card-footer">
               <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
             </div>-->
           </div>
-          @endif
         </div>
-
-
         </a>
-       
       </div>
+        @break
+      @endif
+      @endforeach
+      @endif
 
     </div>
     <!-- /.col-lg-3 -->
@@ -62,6 +75,7 @@
 
       <div class="row">
       @foreach($videos as $video)  
+      @if($video->active == 1)
         <div class="col-lg-4 col-md-6 mb-4">
         <a href="{{route('videoDetail', $video->id)}}">
           <div class="card h-100">
@@ -78,6 +92,7 @@
           </div>
         </div>
         </a>
+        @endif
       @endforeach
 
 

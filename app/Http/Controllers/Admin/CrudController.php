@@ -19,9 +19,7 @@ class CrudController
     }
     public function store(Request $request, $path, $type)
     {
-       
         $path=$request->file($type)->store($path,'public');
-       
         return $path;
                
     }

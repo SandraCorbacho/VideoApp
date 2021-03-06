@@ -58,7 +58,9 @@ class User extends Authenticatable
         if ($this->hasAnyRole($roles)) {
             return true;
         }
-        abort(401, 'Non authorized action.');
+       
+        return false;
+       // abort(401, 'Non authorized action.');
     }
     public function getCompletedAttribute($value)
     {
