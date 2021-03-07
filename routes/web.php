@@ -12,7 +12,9 @@ use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', [WellcomeController::class, 'index'])->name('home');
 Route::get('/video/detail/{id}', [App\Http\Controllers\VideoController::class, 'index'])->name('videoDetail');
-Route::post('/roleUp', [RoleController::class,'roleUp'])->name('roleUp');
+
+Route::post('/roleUp', [RoleController::class,'create'])->name('createPetition');
+
 Auth::routes();
 
 Route::prefix('admin')->middleware('role')->group(function () {
@@ -33,6 +35,9 @@ Route::prefix('admin')->middleware('role')->group(function () {
     Route::get('/video/edit/{item}',[VideoController::class, 'edit'])->name('editVideo');
     Route::post('/video/edit/{item}',[VideoController::class, 'edit'])->name('editVideo');
     //Route::get('/video/edit/{item}',[VideoController::class, 'detail'])->name('detailVideo');
+
+    /*-----Users ---*/
+    Route::post('/users', [RoleController::class,'roleUp'])->name('roleUp');
 });
 
 

@@ -22,8 +22,8 @@ class CheckRole
             return $next($request);
         }
         
-        //dd(RoleUp::where('user_id','=',\Auth::User()->id)->first());
-        if(empty(RoleUp::where('user_id','=',\Auth::User()->id)->first())){
+        //dd(RoleUp::where('user_id','=',\Auth::User())->where('atendida', 0)->first());
+        if(RoleUp::where('user_id','=',\Auth::User())->where('atendida', 0)->first()!= null){
             return back()->withErrors(['No estás autorizado']); 
         }
         return back()->withErrors(['Esperando respuesta del administrador']); 

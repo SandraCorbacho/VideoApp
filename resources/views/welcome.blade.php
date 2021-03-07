@@ -3,12 +3,17 @@
   @if($errors->any())
    @if($errors->first() == 'No estás autorizado')
     <h4>{{$errors->first()}}</h4>
-    <form action="{{route('roleUp')}}" method='post'>
-      <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-      <p>Quieres que el Administrador te suba de rago </p>
-      <input type="submit" value='Si'>
+    @if(\Auth::User())
+    <div class="container">
+      <form action="{{route('createPetition')}}" method='post'>
+          <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+          <p>Quieres que el Administrador te suba de rago </p>
+          <input type="submit" value='Si'>
+      </form>
       <button>No</button>
-    </form>
+    </div>
+      
+    @endif
     @else
       <h4>{{$errors->first()}}</h4>
     @endif
@@ -94,16 +99,6 @@
         </a>
         @endif
       @endforeach
-
-
-        
-
-        
-
-     
-
-      
-
       </div>
       <!-- /.row -->
 

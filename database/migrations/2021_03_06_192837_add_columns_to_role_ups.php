@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageToChannels extends Migration
+class AddColumnsToRoleUps extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddImageToChannels extends Migration
      */
     public function up()
     {
-        Schema::table('channels', function (Blueprint $table) {
-            $table->string('image',999)->after('title');
+        Schema::table('role_ups', function (Blueprint $table) {
+            $table->boolean('atendida')->default(0);
+            $table->boolean('rechazada')->default(0);
+
         });
     }
 
@@ -25,8 +27,9 @@ class AddImageToChannels extends Migration
      */
     public function down()
     {
-        Schema::table('channels', function (Blueprint $table) {
-            $table->dropColumn('image');
+        Schema::table('role_ups', function (Blueprint $table) {
+            $table->dropColumn('atendida');
+            $table->dropColumn('rechazada');
         });
     }
 }

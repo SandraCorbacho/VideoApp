@@ -19,31 +19,84 @@
     <div class="col-9">
         <div class="row">
           <div class="col-12">
-            <table>
-                <td>
-                    <th>Nombre</th>
-                    <th>Rol1</th>
-                    <th>Rol2</th>
-                    <th>Rol3</th>
-                    <th>Rol4</th>
-                </td>
-           
-                @foreach($users as $user)
-                <td>
-                    <tr>{{$user->name}}</tr>
+            <table class='table'>
+                <thead class='thead-dark'>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Canal</th>
+                        <th>nº Videos</th>
+                        <th>Max Rol</th>
+                        <th>Petición pendiente</th>
 
+                    </tr>
+                </thead>
+                
+                @foreach($users as $user)
+                <tr>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>@if($user->channel == null)Sin Canal @else {{$user->channel->title}} @endif</td>
+                    <td>falta relacion videos</td>
                     @foreach($user->roles as $role)
-                        <tr>{{$role->name}}</tr>
+                        <td>{{$role->name}}</td>
+                        @break;
                     @endforeach
-                </td>
+                    <?php $hasPetition = false;?>
+                    @if(count($user->roleUp) != 0)
+                        @foreach($user->roleUp as $petition)
+                            @if($petition->atendida == 0)
+                              <input type="hidden" id='_token{{$user->id}}' name="_token" value="{{ csrf_token() }}" />
+                              <td id = '{{$user->id}}'>Sí <button id='acceptRole' class='ml-3'>Subir</button><button id='denyRole'class='ml-3'>Rechazar</button></td>
+                              <?php $hasPetition = true; ?>
+                              @break;
+                            @endif
+                           
+                        @endforeach
+                    @elseif($hasPetition == false)
+                      ç<td>No</td>
+                    @endif
+                  
+                   
+                </tr>
                 
                 @endforeach
             
-                </table>
+            </table>
           </div>
         </div>
     </div>
   </div>
   
 </div>
+@endsection
+
+
+@section('scripts')
+  <script>
+    $('document').ready(function(){
+       $('#acceptRole').click(function(){
+          let item = $(this).parent()[0];
+          let id= $(item).attr('id')
+          //console.log(id)
+         
+          $.ajax({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            type: 'post',
+            dataType: 'json',
+            url: "{{route('roleUp')}}",
+            method:'POST',
+          
+            data: {
+              id: id,
+            },
+           
+              
+          success: function(result){
+            $('#'+id).hiden();
+          }});
+       })
+    })
+  </script>
+
 @endsection

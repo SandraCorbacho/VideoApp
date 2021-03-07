@@ -12,8 +12,8 @@ class RoleUp extends Model
     protected $fillable = [
         'user_id'
     ];
-    public function index(){
-        dd($this);
+    public function user(){
+        return $this->hasOne(User::class);
     }
     
 }

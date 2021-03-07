@@ -49,7 +49,7 @@ class User extends Authenticatable
     public function publications(){
         return $this->hasMany('App\Models\Publication');
     }
-    public function roles()
+    public function roles() 
     {
         return $this->belongsToMany(Role::class);
     }
@@ -58,7 +58,6 @@ class User extends Authenticatable
         if ($this->hasAnyRole($roles)) {
             return true;
         }
-       
         return false;
        // abort(401, 'Non authorized action.');
     }
@@ -83,10 +82,12 @@ class User extends Authenticatable
     }
     public function hasRole($role)
     {
-
         if ($this->roles()->get()->where('name', $role)->first()) {
             return true;
         }
         return false;
+    }
+    public function roleUp(){
+        return $this->hasMany(RoleUp::class)->orderBy('updated_at', 'DESC');
     }
 }

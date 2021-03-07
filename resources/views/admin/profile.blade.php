@@ -21,7 +21,7 @@
         <a href="#" class="list-group-item">Tus Subscipciones</a>
         @if(!isset($channel) && empty($channel))<a href="{{route('create', 'Channel')}}" class="list-group-item">Crear canal</a>@else
         <a href="{{route('detail', 'Channel')}}" class="list-group-item">Tu canal</a> @endif
-        @if((\Auth::User()->authorizeRoles(['admin'])))<a href='{{route("showUsers")}}'>Administrar usuarios</p> @endif
+        @if((\Auth::User()->authorizeRoles(['admin'])))<a class="list-group-item" href='{{route("showUsers")}}'>Administrar usuarios</a> @endif
       </div>
     </div>
     <div class="col-lg-9">
