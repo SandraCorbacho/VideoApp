@@ -8,7 +8,7 @@
       @if(isset($item) && $item != "Channel" && isset($channel))<img class='w-100' src="{{asset('storage/'.$channel->image)}}">@endif
       <div class="list-group">
         <a href="{{route('create','Video')}}" class="list-group-item">Nuevo Video</a>
-        <a href="" class="list-group-item">Tus Videos</a>
+        <a href="{{route('profile')}}" class="list-group-item">Tus Videos</a>
         <a href="#" class="list-group-item">Tus Subscipciones</a>
         @if(isset($item) &&  $item == 'Channel')
           <a href="{{route('edit'.$item, $item)}}" class="list-group-item">Editar canal</a>
@@ -53,8 +53,10 @@
                             @endif
                            
                         @endforeach
-                    @elseif($hasPetition == false)
-                      ç<td>No</td>
+                    
+                        @endif
+                    @if($hasPetition == false)
+                      <td>No</td>
                     @endif
                   
                    
@@ -93,7 +95,7 @@
            
               
           success: function(result){
-            $('#'+id).hiden();
+            $('#'+id).text('Si');
           }});
        })
     })

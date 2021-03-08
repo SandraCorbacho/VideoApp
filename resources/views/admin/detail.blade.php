@@ -8,17 +8,18 @@
       @if($item != "Channel" && isset($channel))<img class='w-100' src="{{asset('storage/'.$channel->image)}}">@endif
       <div class="list-group">
         <a href="{{route('create','Video')}}" class="list-group-item">Nuevo Video</a>
-        <a href="" class="list-group-item">Tus Videos</a>
+        <a href="{{route('profile')}}" class="list-group-item">Tus Videos</a>
         <a href="#" class="list-group-item">Tus Subscipciones</a>
         @if($item == 'Channel')
           <a href="{{route('edit'.$item, $item)}}" class="list-group-item">Editar canal</a>
         @endif
       </div>
+      <a href='{{route("login")}}' class='btn btn-dark w-100'>Volver</a>
     </div>
     <div class="col-9">
         <div class="row">
           <div class="col-12">
-            <img class='w-100' src="{{asset('storage/'.$channel->image)}}" alt="">
+            <img class='w-100' style='    max-width: 300px;' src="{{asset('storage/'.$channel->image)}}" alt="">
           </div>
         </div>
     </div>

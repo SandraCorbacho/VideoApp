@@ -22,10 +22,14 @@ class CheckRole
             return $next($request);
         }
         
-        //dd(RoleUp::where('user_id','=',\Auth::User())->where('atendida', 0)->first());
-        if(RoleUp::where('user_id','=',\Auth::User())->where('atendida', 0)->first()!= null){
-            return back()->withErrors(['No estás autorizado']); 
+        $peticion = RoleUp::where('user_id','=',\Auth::User()->id)->first();
+        if($peticion!= null){
+           
+            if($peticion->atendida == 0){
+                return back()->withErrors(['Esperando respuesta del administrador']); 
+            }
+            
         }
-        return back()->withErrors(['Esperando respuesta del administrador']); 
+        return back()->withErrors(['No estás autorizado']); 
     }
 }

@@ -9,14 +9,7 @@
 
     <div class="col-lg-3">
 
-      <h1 class="my-4">Canal Nombre Canal</h1>
-      <h1>Este es tu perfil</h1>
-      <h3>Aqui podrás:</h3>
-      <p>subir Video</p>
-      <p>Editar video</p>
-      <p>Borrar video</p>
-      <p>ver Estadisticas de tu canal</p>
-      <p>Ver y gestionar subscripciones</p>
+    <button onclick="goBack()">Volver</button>
 
     </div>
    <form method="POST" action="{{route('create'.$item, $item)}}" enctype="multipart/form-data">
@@ -39,7 +32,7 @@
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Descripción del {{$item}}</label>
-        <textarea class="form-control" name='description' rows="3"></textarea>
+        <textarea class="form-control" name='description' rows="3">@if(old("description")!==null) {{ old('description') }} @endif</textarea>
       </div>
       <div class="input-group mb-3">
         <input type="file" name="image" >

@@ -17,11 +17,12 @@
       @if(isset($channel) && !empty($channel))<img class='w-100' src="{{asset('storage/'.$channel->image)}}">@endif
       <div class="list-group">
         <a href="{{route('create','Video')}}" class="list-group-item">Nuevo Video</a>
-        <a href="" class="list-group-item">Tus Videos</a>
+        <a href="{{route('profile')}}" class="list-group-item">Tus Videos</a>
         <a href="#" class="list-group-item">Tus Subscipciones</a>
         @if(!isset($channel) && empty($channel))<a href="{{route('create', 'Channel')}}" class="list-group-item">Crear canal</a>@else
         <a href="{{route('detail', 'Channel')}}" class="list-group-item">Tu canal</a> @endif
         @if((\Auth::User()->authorizeRoles(['admin'])))<a class="list-group-item" href='{{route("showUsers")}}'>Administrar usuarios</a> @endif
+        <a href='{{asset("/")}}' class='btn btn-dark'>Volver</a>
       </div>
     </div>
     <div class="col-lg-9">
@@ -35,13 +36,12 @@
             </video>-->
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">Item One</a>
+              <a href="{{route('editVideo', $video->id)}}">{{$video->title}}</a>
               </h4>
-              <h5>$24.99</h5>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              <p class="card-text">{{$video->description}}</p>
             </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+            <div class="card-footer d-flex justify-content-between">
+              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> <button class='borrar' value='{{$video->id}}' class='btn-danger'>Borrar</button>
             </div>
           </div>
         </div>
@@ -54,4 +54,24 @@
   </div>
   <!-- /.row -->
 </div>
+@endsection
+@section('scripts')
+<script>
+    $('document').ready(function(){
+      $('.borrar').click(function(){
+        let id = $(this).attr('value');
+        $.ajax({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            type: 'post',
+            url: "{{route('deleteVideo')}}",
+            method:'POST',
+            data: {
+              id: id,
+            },
+          success: function(result){
+              location.reload();
+          }});
+      })
+    })
+</script>
 @endsection

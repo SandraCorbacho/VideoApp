@@ -20,6 +20,7 @@ class VideoController extends CrudController
             'title' => 'required',
             'description' => 'required',
             'active' => 'required',
+            'video' => 'required'
         ]);
         if(!empty($request['video'])){
             $video = new Video();
@@ -90,6 +91,11 @@ class VideoController extends CrudController
            
         
        return redirect()->route('profile');
+    }
+    public function delete(Request $request){
+        $id = ($request->all());
+        Video::where('id', $id)->delete();
+        return 'ok';
     }
    
 }

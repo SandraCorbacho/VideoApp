@@ -3,14 +3,15 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-3">
-      <h1 class="my-4">Canal Nombre Canal</h1>
+      <!--<h1 class="my-4">Canal Nombre Canal</h1>
       <h1>Este es tu perfil</h1>
       <h3>Aqui podrás:</h3>
       <p>subir Video</p>
       <p>Editar video</p>
       <p>Borrar video</p>
       <p>ver Estadisticas de tu canal</p>
-      <p>Ver y gestionar subscripciones</p>
+      <p>Ver y gestionar subscripciones</p>-->
+      <button onclick="goBack()">Volver</button>
     </div>
     <div class="col-lg-9">
       <form method="POST" action="{{route('edit'.$item, $item)}}" enctype="multipart/form-data">

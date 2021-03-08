@@ -34,7 +34,7 @@ Route::prefix('admin')->middleware('role')->group(function () {
     Route::post('/video/create/{item}',[VideoController::class, 'create'])->name('createVideo');
     Route::get('/video/edit/{item}',[VideoController::class, 'edit'])->name('editVideo');
     Route::post('/video/edit/{item}',[VideoController::class, 'edit'])->name('editVideo');
-    //Route::get('/video/edit/{item}',[VideoController::class, 'detail'])->name('detailVideo');
+    Route::post('/video/delete',[VideoController::class, 'delete'])->name('deleteVideo');
 
     /*-----Users ---*/
     Route::post('/users', [RoleController::class,'roleUp'])->name('roleUp');
