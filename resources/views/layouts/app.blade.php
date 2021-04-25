@@ -41,7 +41,10 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                       
+                        <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('contacto') }}">{{ __('contacto') }}</a>
+                                </li>
+                         
                         @if(\Auth::User()==null)
                            
                                 <li class="nav-item">

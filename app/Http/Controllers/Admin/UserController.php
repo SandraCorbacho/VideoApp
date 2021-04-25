@@ -34,29 +34,5 @@ class UserController
            
        
     }
-    public function resetPassword(Request $request){
-        
-        $request = $request->all();
-        if(isset($request['email']) && !empty($request['email'])){
-            $user = User::where('email','=', $request['email'])->first();
-            if($user){
-                $allcorrect = 1;
-                $password = substr(md5(microtime()),1,5);
-                $user->password = bcrypt($password);
-                $emailServices = new EmailServices;
-                $emailServices->recoverPWD($user, $request['email'], $password);
-                return View('front.user.resetPasword')->with([
-                    'allcorrect' => $allcorrect
-                ]);
-                
-            }else{
-                return back()->withErrors([
-                    'errors'=> 'No se ha enocontrado al ususrio',
-                ]);
-            }
-        }
-        return back()->withErrors([
-            'errors'=> 'completa los campos requeridos',
-        ]); 
-    }
+   
 }

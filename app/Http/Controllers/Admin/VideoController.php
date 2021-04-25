@@ -97,5 +97,6 @@ class VideoController extends CrudController
         Video::where('id', $id)->delete();
         return 'ok';
     }
+  
    
 }

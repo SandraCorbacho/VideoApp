@@ -11,23 +11,26 @@ class EmailServices
        {
         $message->from($emailFrom);
         $message->to($to);
-        $message->to($subject);
+        $message->subject($subject);
+       
        });
       
     }
-    public function recoverPWD($user, $email, $password)
+    public function contact($name, $email, $message)
     {
-        $subject = "Video - Nueva contraseña";
-        $view = 'emails.recoverypassword';
+        
+        $subject = "Video - Contacto";
+        $view = 'emails.contacto';
+        $to = $email;
         $data = [
             'data' => [
-                'title' => 'Video - Nueva contraseña',
-                'name' => $user->name,
+                'title' => 'Video - Contacto',
+                'name' => $name,
                 'email' => $email,
-                'password' => $password,
+                'message' => $message,
             ]
             ];
-            
-            $this->sendEmail(env('EMAIL_FROM'), $email, $subject, $view, $data, env('EMAIL_FROM'));
+           
+            $this->sendEmail(env('EMAIL_FROM'),$to, $subject, $view, $data, env('EMAIL_FROM'));
     }
 }

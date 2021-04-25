@@ -11,6 +11,14 @@
           <source src="{{asset('storage/'.$video->path)}}" type="video/mp4">
         </video>
         </div>
+        <div class="col-12">
+        <div class="row">
+            <div class='col-6'>Votos: <h3 id='votes'>{{$video->votes}}</h3></div> 
+            <div class="col-6 text-right"> <button class='btn btn-dark' id='votar'>Votar</button></div>
+        </div>
+        </div>
+        
+       
       </div>
     </div>
   </div>
@@ -53,7 +61,6 @@
                     <p>{{$comment->user->name}} dice:</p>
                     <p>{{$comment->title->title}}</p>
                     <hr>
-                    
                   @endif
                 @endforeach
               @endif
@@ -61,7 +68,6 @@
           </div>
         </div>
         <div class="col-3">
-          
             <div class="row">
                 @foreach($otherVideos as $otherVideo)
                   @if($otherVideo->id != $video->id )
@@ -81,12 +87,23 @@
                     @endif
                 @endforeach
             </div>
-             
           </div>
     </div>
-   
   </div>
-  
 </div>
 
+@endsection
+
+@section('scripts')
+  <script>
+    $('document').ready(function(){
+      $('#votar').click(function(){
+        $.ajax({
+          url: "{{route('vote' , $video->id)}}", 
+          success: function(result){
+              $('#votes').text(result)
+          }});
+      })
+    })
+  </script>
 @endsection

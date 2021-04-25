@@ -36,5 +36,14 @@ class VideoController extends Controller
         }
         return back()->withErrors(['No estás autorizado']); 
     }
+    public function vote($id){
+        
+        $video = Video::where('id','=',$id)->first();
+       
+        $video->votes = $video->votes +1;
+        $video->update();
+        return  $video->votes;
+       
+    }
 }
 

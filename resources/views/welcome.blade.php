@@ -92,7 +92,7 @@
               <p class="card-text">{{$video->description}}</p>
             </div>
             <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              Votos: {{$video->votes}}
             </div>
           </div>
         </div>

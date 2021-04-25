@@ -23,6 +23,6 @@ class Video extends BaseController
     {
         return $this->hasOne(Channel::class);
     }
-   
+  
 
 }
