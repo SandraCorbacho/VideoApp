@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Video;
 use App\Models\Channel;
 use App\Models\RoleUp;
+use App\Models\Comment;
 
 class VideoController extends Controller
 {
@@ -18,11 +19,12 @@ class VideoController extends Controller
                     $video = Video::where('id','=',$id)->first();
                     $channel = Channel::where('id','=',$video->channel_id)->first();
                     $otherVideos = Video::get();;
-                    
+                    $comments = Comment::where('video_id',$video->id)->get();
                     return view('front.video.details')
                     ->with('video', $video)
                     ->with('channel', $channel)
-                    ->with('otherVideos', $otherVideos);
+                    ->with('otherVideos', $otherVideos)
+                    ->with('comments', $comments);
                 }
             $peticion = RoleUp::where('user_id','=',\Auth::User()->id)->first();
             if($peticion!= null){

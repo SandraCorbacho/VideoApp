@@ -38,6 +38,25 @@
             </div>
             <div class="col-12">
               <h2>Comentarios</h2>
+              @if(Auth::User())
+                <form action="{{route('add.comment', $video->id)}}" method='POST'>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                  <input type="text" name='comment' placeholder='Añadir comentario...'>
+                  <input type="submit">
+                </form>
+              @endif
+            
+              <br>
+              @if(isset($comments))
+                @foreach($comments as $comment)
+                  @if($comment->title != null)
+                    <p>{{$comment->user->name}} dice:</p>
+                    <p>{{$comment->title->title}}</p>
+                    <hr>
+                    
+                  @endif
+                @endforeach
+              @endif
             </div>
           </div>
         </div>
